@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>loutaiyue.exe</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#05010d;
+    overflow:hidden;
+    font-family:'Share Tech Mono', monospace;
+    color:#ff9ecb;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+/* Matrix Canvas */
+canvas{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    z-index:-2;
+}
+
+/* 鼠标光 */
+.mouse-light{
+    position:fixed;
+    width:300px;
+    height:300px;
+    background:radial-gradient(circle, rgba(255,0,180,0.15), transparent 70%);
+    border-radius:50%;
+    pointer-events:none;
+    transform:translate(-50%, -50%);
+    z-index:-1;
+}
+
+/* 扫描线 */
+.scanlines{
+    position:fixed;
+    width:100%;
+    height:100%;
+    background:
+    repeating-linear-gradient(
+        to bottom,
+        rgba(255,255,255,0.03),
+        rgba(255,255,255,0.03) 1px,
+        transparent 1px,
+        transparent 3px
+    );
+    pointer-events:none;
+    z-index:2;
+}
+
+/* 主容器 */
+.container{
+    width:800px;
+    max-width:90%;
+    padding:50px;
+
+    background:rgba(10,5,20,0.6);
+
+    border:1px solid rgba(255,0,180,0.3);
+
+    backdrop-filter:blur(20px);
+
+    box-shadow:
+    0 0 20px rgba(255,0,180,0.2),
+    0 0 60px rgba(0,255,255,0.1);
+
+    border-radius:20px;
+
+    position:relative;
+
+    animation:float 5s ease-in-out infinite;
+}
+
+@keyframes float{
+    0%,100%{
+        transform:translateY(0px);
+    }
+    50%{
+        transform:translateY(-10px);
+    }
+}
+
+/* 顶部状态栏 */
+.topbar{
+    display:flex;
+    gap:10px;
+    margin-bottom:30px;
+}
+
+.dot{
+    width:12px;
+    height:12px;
+    border-radius:50%;
+}
+
+.red{ background:#ff5f56; }
+.yellow{ background:#ffbd2e; }
+.green{ background:#27c93f; }
+
+h1{
+    font-size:48px;
+    margin-bottom:20px;
+
+    background:linear-gradient(90deg,#ff71ce,#01cdfe);
+
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+
+    text-shadow:0 0 20px rgba(255,0,180,0.5);
+}
+
+/* 打字机 */
+.typing{
+    font-size:22px;
+    margin-bottom:20px;
+    white-space:nowrap;
+    overflow:hidden;
+    border-right:3px solid #ff71ce;
+
+    width:0;
+
+    animation:
+    typing 4s steps(40,end) forwards,
+    blink .8s infinite;
+}
+
+@keyframes typing{
+    from{ width:0; }
+    to{ width:100%; }
+}
+
+@keyframes blink{
+    50%{
+        border-color:transparent;
+    }
+}
+
+p{
+    margin:15px 0;
+    color:#d6c5ff;
+    line-height:1.8;
+}
+
+/* 状态文字 */
+.status{
+    color:#00ff99;
+    text-shadow:0 0 10px #00ff99;
+}
+
+/* 按钮 */
+.btn{
+    margin-top:30px;
+    display:inline-block;
+
+    padding:14px 30px;
+
+    border:1px solid rgba(255,255,255,0.15);
+
+    border-radius:999px;
+
+    color:#fff;
+
+    text-decoration:none;
+
+    transition:0.4s;
+
+    background:rgba(255,255,255,0.05);
+
+    backdrop-filter:blur(10px);
+
+    box-shadow:0 0 20px rgba(255,0,180,0.1);
+}
+
+.btn:hover{
+    transform:translateY(-5px) scale(1.05);
+
+    background:linear-gradient(90deg,#ff71ce,#01cdfe);
+
+    box-shadow:
+    0 0 20px #ff71ce,
+    0 0 40px #01cdfe;
+}
+
+/* 底部信息 */
+.footer{
+    margin-top:30px;
+    font-size:14px;
+    color:#888;
+}
+
+/* 手机适配 */
+@media(max-width:768px){
+
+    h1{
+        font-size:32px;
+    }
+
+    .typing{
+        font-size:16px;
+    }
+
+    .container{
+        padding:30px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<canvas id="matrix"></canvas>
+
+<div class="mouse-light"></div>
+
+<div class="scanlines"></div>
+
+<div class="container">
+
+    <div class="topbar">
+        <div class="dot red"></div>
+        <div class="dot yellow"></div>
+        <div class="dot green"></div>
+    </div>
+
+    <h1>loutaiyue.exe</h1>
+
+    <div class="typing">
+        > Initializing cyber terminal...
+    </div>
+
+    <p>
+        欢迎来到我的赛博空间。
+    </p>
+
+    <p>
+        > 用户：loutaiyue
+    </p>
+
+    <p class="status">
+        > SYSTEM STATUS : ONLINE
+    </p>
+
+    <p>
+        > 当前状态：Building Future...
+    </p>
+
+    <a class="btn" href="https://github.com/loutaiyue" target="_blank">
+        ENTER GITHUB
+    </a>
+
+    <div class="footer">
+        CYBER TERMINAL v2.0
+    </div>
+
+</div>
+
+<script>
+
+/* 鼠标光效 */
+
+const light = document.querySelector('.mouse-light');
+
+document.addEventListener('mousemove', e => {
+
+    light.style.left = e.clientX + 'px';
+    light.style.top = e.clientY + 'px';
+
+});
+
+
+/* Matrix Rain */
+
+const canvas = document.getElementById('matrix');
+const ctx = canvas.getContext('2d');
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+const chars = "01アイウエオカキクケコサシスセソ";
+const fontSize = 16;
+
+const columns = canvas.width / fontSize;
+
+const drops = [];
+
+for(let i = 0; i < columns; i++){
+    drops[i] = 1;
+}
+
+function draw(){
+
+    ctx.fillStyle = "rgba(5,1,13,0.08)";
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+
+    ctx.fillStyle = "#ff71ce";
+    ctx.font = fontSize + "px monospace";
+
+    for(let i = 0; i < drops.length; i++){
+
+        const text = chars.charAt(
+            Math.floor(Math.random() * chars.length)
+        );
+
+        ctx.fillText(
+            text,
+            i * fontSize,
+            drops[i] * fontSize
+        );
+
+        if(
+            drops[i] * fontSize > canvas.height &&
+            Math.random() > 0.975
+        ){
+            drops[i] = 0;
+        }
+
+        drops[i]++;
+    }
+
+}
+
+setInterval(draw, 33);
+
+window.addEventListener('resize', () => {
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+});
+
+</script>
+
+</body>
+</html>
