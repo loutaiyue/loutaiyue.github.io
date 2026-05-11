@@ -206,6 +206,51 @@ p{
     color:#888;
 }
 
+/* Interactive widget */
+.widget{
+    margin-top:24px;
+    padding:16px;
+    border:1px solid rgba(255,255,255,0.15);
+    border-radius:12px;
+    background:rgba(255,255,255,0.03);
+}
+
+.widget-title{
+    color:#01cdfe;
+    margin-bottom:10px;
+    text-shadow:0 0 10px rgba(1,205,254,0.5);
+}
+
+.widget-counter{
+    margin-bottom:12px;
+    color:#fff;
+}
+
+.widget-actions{
+    display:flex;
+    gap:10px;
+}
+
+.small-btn{
+    padding:8px 14px;
+    border-radius:999px;
+    border:1px solid rgba(255,255,255,0.2);
+    background:rgba(255,255,255,0.08);
+    color:#fff;
+    cursor:pointer;
+    transition:0.25s;
+}
+
+.small-btn:hover{
+    transform:translateY(-2px);
+    background:linear-gradient(90deg,#ff71ce,#01cdfe);
+}
+
+.small-btn:focus-visible{
+    outline:2px solid #01cdfe;
+    outline-offset:2px;
+}
+
 /* 手机适配 */
 @media(max-width:768px){
 
@@ -263,6 +308,15 @@ p{
     <p>
         > 当前状态：Building Future...
     </p>
+
+    <div class="widget">
+        <div class="widget-title">> MINI REACTOR</div>
+        <div class="widget-counter" role="status" aria-live="polite" aria-atomic="true">ENERGY: <span id="energyValue">0</span></div>
+        <div class="widget-actions">
+            <button class="small-btn" id="chargeBtn" aria-label="Charge energy by 1">CHARGE +1</button>
+            <button class="small-btn" id="resetBtn" aria-label="Reset energy to zero">RESET</button>
+        </div>
+    </div>
 
     <a class="btn" href="https://github.com/loutaiyue" target="_blank">
         ENTER GITHUB
@@ -347,6 +401,41 @@ window.addEventListener('resize', () => {
     canvas.height = window.innerHeight;
 
 });
+
+/* Widget interaction */
+const energyValueEl = document.getElementById('energyValue');
+const chargeBtn = document.getElementById('chargeBtn');
+const resetBtn = document.getElementById('resetBtn');
+
+const STORAGE_KEY = 'cyber_energy';
+const CHARGE_AMOUNT = 1;
+const MAX_ENERGY = 9999;
+const parsedEnergy = parseInt(localStorage.getItem(STORAGE_KEY), 10);
+let energy = Number.isNaN(parsedEnergy) || parsedEnergy < 0
+    ? 0
+    : Math.min(parsedEnergy, MAX_ENERGY);
+
+function updateEnergyDisplay(){
+    if(energyValueEl){
+        energyValueEl.textContent = energy;
+    }
+}
+
+if(energyValueEl && chargeBtn && resetBtn){
+    updateEnergyDisplay();
+
+    chargeBtn.addEventListener('click', () => {
+        energy = Math.min(energy + CHARGE_AMOUNT, MAX_ENERGY);
+        localStorage.setItem(STORAGE_KEY, energy);
+        updateEnergyDisplay();
+    });
+
+    resetBtn.addEventListener('click', () => {
+        energy = 0;
+        localStorage.setItem(STORAGE_KEY, energy);
+        updateEnergyDisplay();
+    });
+}
 
 </script>
 
