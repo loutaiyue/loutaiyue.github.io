@@ -306,10 +306,10 @@ p{
 
     <div class="widget">
         <div class="widget-title">> MINI REACTOR</div>
-        <div class="widget-counter">能量值：<span id="energyValue" aria-live="polite"></span></div>
+        <div class="widget-counter">能量值：<span id="energyValue" aria-live="polite">0</span></div>
         <div class="widget-actions">
-            <button class="small-btn" id="chargeBtn">CHARGE +1</button>
-            <button class="small-btn" id="resetBtn">RESET</button>
+            <button class="small-btn" id="chargeBtn" aria-label="Charge energy by 1">CHARGE +1</button>
+            <button class="small-btn" id="resetBtn" aria-label="Reset energy to zero">RESET</button>
         </div>
     </div>
 
@@ -403,6 +403,7 @@ const chargeBtn = document.getElementById('chargeBtn');
 const resetBtn = document.getElementById('resetBtn');
 
 let energy = parseInt(localStorage.getItem('cyber_energy'), 10) || 0;
+const MAX_ENERGY = 9999;
 
 function updateEnergyDisplay(){
     if(energyValueEl){
@@ -414,7 +415,7 @@ if(energyValueEl && chargeBtn && resetBtn){
     updateEnergyDisplay();
 
     chargeBtn.addEventListener('click', () => {
-        energy += 1;
+        energy = Math.min(energy + 1, MAX_ENERGY);
         localStorage.setItem('cyber_energy', energy);
         updateEnergyDisplay();
     });
