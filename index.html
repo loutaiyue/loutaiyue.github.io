@@ -306,7 +306,7 @@ p{
 
     <div class="widget">
         <div class="widget-title">> MINI REACTOR</div>
-        <div class="widget-counter">能量值：<span id="energyValue">0</span></div>
+        <div class="widget-counter">能量值：<span id="energyValue" aria-live="polite" aria-label="迷你反应堆当前能量值">0</span></div>
         <div class="widget-actions">
             <button class="small-btn" id="chargeBtn">CHARGE +1</button>
             <button class="small-btn" id="resetBtn">RESET</button>
@@ -409,19 +409,21 @@ function updateEnergyDisplay(){
     energyValueEl.textContent = energy;
 }
 
-updateEnergyDisplay();
-
-chargeBtn.addEventListener('click', () => {
-    energy += 1;
-    localStorage.setItem('cyber_energy', String(energy));
+if(energyValueEl && chargeBtn && resetBtn){
     updateEnergyDisplay();
-});
 
-resetBtn.addEventListener('click', () => {
-    energy = 0;
-    localStorage.setItem('cyber_energy', String(energy));
-    updateEnergyDisplay();
-});
+    chargeBtn.addEventListener('click', () => {
+        energy += 1;
+        localStorage.setItem('cyber_energy', String(energy));
+        updateEnergyDisplay();
+    });
+
+    resetBtn.addEventListener('click', () => {
+        energy = 0;
+        localStorage.setItem('cyber_energy', String(energy));
+        updateEnergyDisplay();
+    });
+}
 
 </script>
 
