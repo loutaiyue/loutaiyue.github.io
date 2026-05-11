@@ -206,7 +206,7 @@ p{
     color:#888;
 }
 
-/* 小组件 */
+/* Interactive widget */
 .widget{
     margin-top:24px;
     padding:16px;
@@ -244,6 +244,11 @@ p{
 .small-btn:hover{
     transform:translateY(-2px);
     background:linear-gradient(90deg,#ff71ce,#01cdfe);
+}
+
+.small-btn:focus-visible{
+    outline:2px solid #01cdfe;
+    outline-offset:2px;
 }
 
 /* 手机适配 */
@@ -397,7 +402,7 @@ window.addEventListener('resize', () => {
 
 });
 
-/* 小组件交互 */
+/* Widget interaction */
 const energyValueEl = document.getElementById('energyValue');
 const chargeBtn = document.getElementById('chargeBtn');
 const resetBtn = document.getElementById('resetBtn');
