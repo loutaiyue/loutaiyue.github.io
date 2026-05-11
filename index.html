@@ -306,7 +306,7 @@ p{
 
     <div class="widget">
         <div class="widget-title">> MINI REACTOR</div>
-        <div class="widget-counter">能量值：<span id="energyValue" aria-live="polite">0</span></div>
+        <div class="widget-counter">能量值：<span id="energyValue" aria-live="polite"></span></div>
         <div class="widget-actions">
             <button class="small-btn" id="chargeBtn">CHARGE +1</button>
             <button class="small-btn" id="resetBtn">RESET</button>
@@ -405,7 +405,9 @@ const resetBtn = document.getElementById('resetBtn');
 let energy = parseInt(localStorage.getItem('cyber_energy'), 10) || 0;
 
 function updateEnergyDisplay(){
-    energyValueEl.textContent = energy;
+    if(energyValueEl){
+        energyValueEl.textContent = energy;
+    }
 }
 
 if(energyValueEl && chargeBtn && resetBtn){
