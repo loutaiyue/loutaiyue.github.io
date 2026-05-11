@@ -311,7 +311,7 @@ p{
 
     <div class="widget">
         <div class="widget-title">> MINI REACTOR</div>
-        <div class="widget-counter" role="status" aria-live="polite">ENERGY: <span id="energyValue"></span></div>
+        <div class="widget-counter" role="status" aria-live="polite">ENERGY: <span id="energyValue">0</span></div>
         <div class="widget-actions">
             <button class="small-btn" id="chargeBtn" aria-label="Charge energy by 1">CHARGE +1</button>
             <button class="small-btn" id="resetBtn" aria-label="Reset energy to zero">RESET</button>
@@ -407,9 +407,10 @@ const energyValueEl = document.getElementById('energyValue');
 const chargeBtn = document.getElementById('chargeBtn');
 const resetBtn = document.getElementById('resetBtn');
 
+const STORAGE_KEY = 'cyber_energy';
 const CHARGE_AMOUNT = 1;
 const MAX_ENERGY = 9999;
-const parsedEnergy = parseInt(localStorage.getItem('cyber_energy'), 10);
+const parsedEnergy = parseInt(localStorage.getItem(STORAGE_KEY), 10);
 let energy = Number.isNaN(parsedEnergy) || parsedEnergy < 0
     ? 0
     : Math.min(parsedEnergy, MAX_ENERGY);
@@ -425,13 +426,13 @@ if(energyValueEl && chargeBtn && resetBtn){
 
     chargeBtn.addEventListener('click', () => {
         energy = Math.min(energy + CHARGE_AMOUNT, MAX_ENERGY);
-        localStorage.setItem('cyber_energy', energy);
+        localStorage.setItem(STORAGE_KEY, energy);
         updateEnergyDisplay();
     });
 
     resetBtn.addEventListener('click', () => {
         energy = 0;
-        localStorage.setItem('cyber_energy', energy);
+        localStorage.setItem(STORAGE_KEY, energy);
         updateEnergyDisplay();
     });
 }
