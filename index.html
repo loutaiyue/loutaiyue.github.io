@@ -142,11 +142,18 @@
                 </div>
                 <div
                   class="terminal-demo"
-                  role="img"
-                  aria-label="终端演示：whoami 显示用户名 loutaiyue；ls projects/ 列出 komari-theme-zzz 和 KnowledgeHub 两个项目。"
+                  role="region"
+                  aria-label="个人终端"
                   data-paused="true"
                 >
-                  <div class="terminal-transcript" aria-hidden="true">
+                  <div
+                    class="terminal-transcript"
+                    id="terminal-output"
+                    tabindex="0"
+                    role="region"
+                    aria-label="终端输出"
+                    aria-live="off"
+                  >
                     <div class="terminal-line" data-command>
                       <span class="terminal-prompt">~ $</span
                       ><span class="terminal-text">whoami</span>
@@ -168,18 +175,55 @@
                     >
                       <span class="terminal-text">KnowledgeHub/</span>
                     </div>
-                    <div class="terminal-line" data-command>
-                      <span class="terminal-prompt">~ $</span
-                      ><span class="terminal-text"></span
-                      ><span class="terminal-cursor"></span>
-                    </div>
                   </div>
+                  <form class="terminal-form" hidden>
+                    <span class="terminal-prompt" aria-hidden="true">~ $</span>
+                    <label class="visually-hidden" for="terminal-command"
+                      >输入终端命令</label
+                    >
+                    <input
+                      class="terminal-input"
+                      id="terminal-command"
+                      name="command"
+                      type="text"
+                      autocomplete="off"
+                      autocapitalize="off"
+                      spellcheck="false"
+                      maxlength="160"
+                      placeholder="help"
+                      aria-describedby="terminal-hint"
+                    />
+                    <button
+                      class="terminal-submit"
+                      type="submit"
+                      aria-label="执行命令"
+                    >
+                      ↵
+                    </button>
+                  </form>
+                  <span id="terminal-hint" class="visually-hidden"
+                    >输入 help 查看命令，上下方向键查看历史，Ctrl+C
+                    停止输出。</span
+                  >
+                  <span
+                    class="terminal-status visually-hidden"
+                    role="status"
+                    aria-atomic="true"
+                  ></span>
                 </div>
                 <div class="screen-rule"></div>
                 <div class="screen-bottom">
-                  <a class="terminal-favorite" href="#favorites"
+                  <span aria-hidden="true">STAY CURIOUS.</span
+                  ><a class="terminal-favorite" href="#favorites"
                     >我的偏爱 <span aria-hidden="true">↗</span></a
-                  ><span aria-hidden="true">STAY CURIOUS.</span>
+                  ><button
+                    class="terminal-expand"
+                    type="button"
+                    aria-haspopup="dialog"
+                    hidden
+                  >
+                    输入命令 <span aria-hidden="true">↗</span>
+                  </button>
                 </div>
               </div>
               <div class="monitor-bottom">
@@ -188,8 +232,8 @@
                 ><button
                   class="monitor-power"
                   type="button"
-                  aria-label="重新播放终端演示"
-                  title="重新播放终端演示"
+                  aria-label="重置终端"
+                  title="重置终端"
                   disabled
                 >
                   <span></span>
@@ -638,6 +682,23 @@
       ><a href="#favorites" aria-label="05 偏爱">05</a
       ><span aria-hidden="true">↓</span>
     </aside>
+
+    <dialog class="terminal-dialog" aria-labelledby="terminal-title">
+      <header class="terminal-dialog-top">
+        <div>
+          <span>PERSONAL TERMINAL</span>
+          <h2 id="terminal-title">个人终端<span aria-hidden="true">_</span></h2>
+        </div>
+        <button class="terminal-close" type="button" aria-label="关闭终端">
+          关闭 <span aria-hidden="true">×</span>
+        </button>
+      </header>
+      <div class="terminal-mount"></div>
+      <footer class="terminal-dialog-bottom">
+        <p><b>help</b> 查看命令 · ↑↓ 历史 · Ctrl+C 停止</p>
+        <button class="terminal-reset" type="button">重置</button>
+      </footer>
+    </dialog>
 
     <dialog class="content-dialog" aria-labelledby="dialog-title">
       <div class="dialog-top">

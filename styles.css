@@ -637,18 +637,56 @@ h1 {
     "Courier New",
     monospace;
   margin-top: 18px;
+  height: 9.9em;
   padding-left: 26px;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
   position: relative;
   z-index: 1;
   color: #eef5d6;
   text-shadow: 0 0 8px #d7ff0020;
 }
+.terminal-transcript {
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: #647344 transparent;
+  overflow-anchor: none;
+  overflow-wrap: anywhere;
+}
+.terminal-transcript:focus-visible {
+  outline: 1px solid var(--lime);
+  outline-offset: -1px;
+}
 .terminal-line {
-  height: 1.65em;
-  white-space: nowrap;
+  min-height: 1.65em;
+  white-space: normal;
+  overflow-wrap: anywhere;
 }
 .terminal-line.is-pending {
-  visibility: hidden;
+  display: none;
+}
+.terminal-line.is-typing::after {
+  content: "";
+  display: inline-block;
+  width: 0.58em;
+  height: 1.05em;
+  margin-left: 0.15em;
+  background: var(--lime);
+  vertical-align: -0.16em;
+  animation: blink 1.1s steps(1) infinite;
+}
+.terminal-demo[data-paused="true"] .terminal-line.is-typing::after {
+  animation-play-state: paused;
+}
+.terminal-line > span:not(.terminal-prompt),
+.terminal-line > a {
+  white-space: pre-wrap;
 }
 .terminal-prompt {
   color: var(--lime);
@@ -660,17 +698,105 @@ h1 {
 .terminal-directory {
   color: #b5d790;
 }
-.terminal-cursor {
-  display: inline-block;
-  width: 0.58em;
-  height: 1.05em;
-  margin-left: 0.15em;
-  background: var(--lime);
-  vertical-align: -0.16em;
-  animation: blink 1.1s steps(1) infinite;
+.terminal-error {
+  color: #ffb8a6;
 }
-.terminal-demo[data-paused="true"] .terminal-cursor {
-  animation-play-state: paused;
+.terminal-muted {
+  color: #94a581;
+}
+.terminal-success {
+  color: var(--lime);
+}
+.terminal-transcript a {
+  color: #d7edaa;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.terminal-transcript a:hover {
+  color: #fff;
+}
+.terminal-transcript a:focus-visible {
+  outline: 1px solid var(--lime);
+  outline-offset: 2px;
+}
+.terminal-form {
+  display: flex;
+  align-items: center;
+  flex: 0 0 32px;
+  min-width: 0;
+  margin-top: 3px;
+  border-bottom: 1px solid #687e3d;
+}
+.terminal-form:focus-within {
+  border-color: var(--lime);
+}
+.terminal-form .terminal-prompt {
+  flex-shrink: 0;
+}
+.terminal-input {
+  width: 0;
+  min-width: 0;
+  flex: 1;
+  height: 30px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: #eef5d6;
+  caret-color: var(--lime);
+  font:
+    400 16px Consolas,
+    "Courier New",
+    monospace;
+}
+.terminal-input:focus {
+  outline: 0;
+}
+.terminal-input::placeholder {
+  color: #94a581;
+}
+.terminal-submit {
+  flex: 0 0 30px;
+  height: 30px;
+  padding: 0;
+  background: transparent;
+  color: var(--lime);
+  font-size: 20px;
+  line-height: 1;
+}
+.terminal-submit:hover {
+  background: #d7ff0014;
+}
+.terminal-submit:disabled {
+  color: #75805f;
+}
+.terminal-expand {
+  order: 2;
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 30px;
+  margin-block: -7px;
+  padding: 0 2px;
+  background: transparent;
+  color: var(--lime);
+  font: 700 10px var(--body);
+  letter-spacing: 0;
+}
+.terminal-expand:hover {
+  color: #fff;
+}
+.terminal-expand::after {
+  content: "";
+  position: absolute;
+  inset: -7px 0;
+}
+.terminal-expand:focus-visible,
+.terminal-submit:focus-visible {
+  outline: 2px solid var(--lime);
+  outline-offset: 2px;
 }
 .screen-rule {
   height: 1px;
@@ -1563,6 +1689,7 @@ h1 {
 }
 /* A personal collection: the original artwork keeps its own colors. */
 .terminal-favorite {
+  order: 1;
   position: relative;
   z-index: 1;
   display: inline-flex;
@@ -1923,6 +2050,133 @@ h1 {
   color: var(--lime);
   font-size: 22px;
   margin-top: 4px;
+}
+.terminal-dialog {
+  width: min(800px, calc(100% - 32px));
+  height: min(600px, 85dvh);
+  max-width: none;
+  max-height: calc(100dvh - 24px);
+  margin: auto;
+  padding: 0;
+  overflow: hidden;
+  border: 2px solid #73864a;
+  border-radius: 16px;
+  background: #141b12;
+  color: #eef5d6;
+  color-scheme: dark;
+  box-shadow:
+    0 25px 100px #0008,
+    inset 0 0 60px #0005;
+}
+.terminal-dialog[open] {
+  display: flex;
+  flex-direction: column;
+}
+.terminal-dialog::backdrop {
+  background: #090d0bd9;
+  backdrop-filter: blur(8px);
+}
+.terminal-dialog-top,
+.terminal-dialog-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-shrink: 0;
+  padding: 16px 24px;
+}
+.terminal-dialog-top {
+  border-bottom: 1px solid #465632;
+}
+.terminal-dialog-top > div > span {
+  display: block;
+  color: #94a581;
+  font: 800 10px var(--display);
+  letter-spacing: 2px;
+}
+.terminal-dialog-top h2 {
+  margin-top: 5px;
+  color: #eef5d6;
+  font-size: 22px;
+  line-height: 1.3;
+}
+.terminal-dialog-top h2 > span {
+  color: var(--lime);
+  margin-left: 6px;
+}
+.terminal-close,
+.terminal-reset {
+  min-width: 64px;
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 1px solid #65783d;
+  border-radius: 4px;
+  background: #d7ff000a;
+  color: var(--lime);
+  font: 600 12px var(--body);
+}
+.terminal-close > span {
+  margin-left: 8px;
+  font-size: 18px;
+}
+.terminal-close:hover,
+.terminal-reset:hover {
+  background: #d7ff001c;
+  border-color: var(--lime);
+}
+.terminal-close:focus-visible,
+.terminal-reset:focus-visible {
+  outline: 2px solid var(--lime);
+  outline-offset: 3px;
+}
+.terminal-mount {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  padding: 20px 24px 0;
+  background: repeating-linear-gradient(0deg, transparent 0 3px, #0001 3px 4px);
+}
+.terminal-dialog .terminal-demo {
+  flex: 1;
+  height: auto;
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  line-height: 1.75;
+}
+.terminal-dialog .terminal-transcript {
+  padding-right: 8px;
+}
+.terminal-dialog .terminal-form {
+  display: flex;
+  flex-basis: 48px;
+  gap: 4px;
+  margin-top: 12px;
+  border-top: 1px solid #465632;
+  border-bottom: 0;
+}
+.terminal-dialog .terminal-input {
+  height: 44px;
+}
+.terminal-dialog .terminal-submit {
+  flex-basis: 44px;
+  height: 44px;
+}
+.terminal-dialog-bottom {
+  padding-top: 10px;
+  padding-bottom: 12px;
+}
+.terminal-dialog-bottom p {
+  color: #a4b293;
+  font: 400 11px/1.8 var(--body);
+}
+.terminal-dialog-bottom b {
+  color: var(--lime);
+  font:
+    600 12px Consolas,
+    "Courier New",
+    monospace;
 }
 .content-dialog {
   padding: 0;
@@ -2827,6 +3081,42 @@ h1 {
     font-size: 10px;
     margin-top: 13px;
     padding-left: 50px;
+  }
+  .monitor-screen .terminal-form {
+    display: none;
+  }
+  .terminal-expand {
+    min-height: 44px;
+    gap: 3px;
+    font-size: 10px;
+  }
+  .terminal-dialog {
+    width: calc(100% - 20px);
+    height: min(600px, 85dvh);
+    max-height: calc(100dvh - 20px);
+    border-radius: 12px;
+  }
+  .terminal-dialog-top,
+  .terminal-dialog-bottom {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+  .terminal-dialog-top {
+    padding-block: 10px;
+  }
+  .terminal-dialog-top h2 {
+    font-size: 18px;
+  }
+  .terminal-mount {
+    padding: 14px 14px 0;
+  }
+  .terminal-dialog-bottom {
+    gap: 8px;
+    padding-top: 8px;
+    padding-bottom: 10px;
+  }
+  .terminal-dialog-bottom p {
+    font-size: 10px;
   }
   .screen-rule {
     margin-top: 12px;
