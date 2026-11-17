@@ -404,18 +404,6 @@ document.addEventListener("channel:bootchange", syncCompanionActivity);
 reducedMotion.addEventListener("change", syncCompanionActivity);
 syncCompanionActivity();
 
-const terminalGreetings = [
-  "欢迎接入我的小世界。",
-  "小想法，也值得被认真对待。",
-  "今天想做点什么？",
-  "频道在线，好奇心也在线。",
-];
-let terminalIndex = 0;
-document.querySelector(".monitor-power").addEventListener("click", () => {
-  document.querySelector(".monitor-screen > p").textContent =
-    terminalGreetings[++terminalIndex % terminalGreetings.length];
-});
-
 const dialog = document.querySelector(".content-dialog");
 let dialogOpener = null;
 document.querySelectorAll("[data-content]").forEach((button) => {

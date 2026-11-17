@@ -22,9 +22,11 @@
         document.querySelectorAll("[inert]").forEach((el) => {
           el.inert = false;
         });
+        document.dispatchEvent(new Event("channel:bootchange"));
       }, 5500);
     </script>
     <script src="./app.js" defer></script>
+    <script src="./terminal.js" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main">跳到正文</a>
@@ -136,17 +138,48 @@
               </div>
               <div class="monitor-screen">
                 <div class="screen-top">
-                  <span><i></i> SYSTEM READY</span><span>CH. 01</span>
+                  <span><i></i> LOUTAIYUE@PC</span><span>TTY / 01</span>
                 </div>
-                <div class="screen-title">
-                  HELLO,<br /><span>FRIEND.</span><b aria-hidden="true">_</b>
+                <div
+                  class="terminal-demo"
+                  role="img"
+                  aria-label="终端演示：whoami 显示用户名 loutaiyue；ls projects/ 列出 komari-theme-zzz 和 KnowledgeHub 两个项目。"
+                  data-paused="true"
+                >
+                  <div class="terminal-transcript" aria-hidden="true">
+                    <div class="terminal-line" data-command>
+                      <span class="terminal-prompt">~ $</span
+                      ><span class="terminal-text">whoami</span>
+                    </div>
+                    <div class="terminal-line terminal-output">
+                      <span class="terminal-text">loutaiyue</span>
+                    </div>
+                    <div class="terminal-line" data-command>
+                      <span class="terminal-prompt">~ $</span
+                      ><span class="terminal-text">ls projects/</span>
+                    </div>
+                    <div
+                      class="terminal-line terminal-output terminal-directory"
+                    >
+                      <span class="terminal-text">komari-theme-zzz/</span>
+                    </div>
+                    <div
+                      class="terminal-line terminal-output terminal-directory"
+                    >
+                      <span class="terminal-text">KnowledgeHub/</span>
+                    </div>
+                    <div class="terminal-line" data-command>
+                      <span class="terminal-prompt">~ $</span
+                      ><span class="terminal-text"></span
+                      ><span class="terminal-cursor"></span>
+                    </div>
+                  </div>
                 </div>
                 <div class="screen-rule"></div>
-                <p>欢迎接入我的小世界。</p>
                 <div class="screen-bottom">
                   <a class="terminal-favorite" href="#favorites"
                     >我的偏爱 <span aria-hidden="true">↗</span></a
-                  ><span aria-hidden="true">CH. 05</span>
+                  ><span aria-hidden="true">STAY CURIOUS.</span>
                 </div>
               </div>
               <div class="monitor-bottom">
@@ -155,7 +188,9 @@
                 ><button
                   class="monitor-power"
                   type="button"
-                  aria-label="切换终端问候语"
+                  aria-label="重新播放终端演示"
+                  title="重新播放终端演示"
+                  disabled
                 >
                   <span></span>
                 </button>
