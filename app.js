@@ -404,10 +404,87 @@ document.addEventListener("channel:bootchange", syncCompanionActivity);
 reducedMotion.addEventListener("change", syncCompanionActivity);
 syncCompanionActivity();
 
+const logCarousel = document.querySelector(".notes-archive");
+const logCards = [...logCarousel.querySelectorAll("[data-log-card]")];
+const logCounter = logCarousel.querySelector(".archive-counter");
+let logIndex = 0;
+let logSuppressClickUntil = 0;
+
+function selectLog(index, { focus = false } = {}) {
+  logIndex = (index + logCards.length) % logCards.length;
+  logCards.forEach((card, i) => {
+    const offset = (i - logIndex + logCards.length) % logCards.length;
+    const current = offset === 0;
+    card.dataset.position = current
+      ? "current"
+      : offset <= logCards.length / 2
+        ? "right"
+        : "left";
+    card.tabIndex = current ? 0 : -1;
+    const title = card.querySelector(".archive-copy > strong").textContent;
+    card.setAttribute(
+      "aria-label",
+      `${current ? "阅读" : "选中"}档案 ${String(i + 1).padStart(3, "0")}：${title}`,
+    );
+    if (current) card.setAttribute("aria-current", "true");
+    else card.removeAttribute("aria-current");
+  });
+  logCounter.querySelector("b").textContent = String(logIndex + 1).padStart(2, "0");
+  if (focus) logCards[logIndex].focus({ preventScroll: true });
+}
+
+logCarousel.querySelector("[data-log-prev]").addEventListener("click", () => {
+  selectLog(logIndex - 1);
+});
+logCarousel.querySelector("[data-log-next]").addEventListener("click", () => {
+  selectLog(logIndex + 1);
+});
+logCarousel.addEventListener("keydown", (event) => {
+  const next = {
+    ArrowLeft: logIndex - 1,
+    ArrowRight: logIndex + 1,
+    Home: 0,
+    End: logCards.length - 1,
+  }[event.key];
+  if (next === undefined) return;
+  event.preventDefault();
+  selectLog(next, { focus: event.target.matches(".archive-card") });
+});
+
+const logStage = logCarousel.querySelector(".archive-stage");
+let logTouch = null;
+logStage.addEventListener("pointerdown", (event) => {
+  if (event.pointerType === "mouse" || !event.isPrimary) return;
+  logTouch = { x: event.clientX, y: event.clientY, id: event.pointerId };
+});
+logStage.addEventListener("pointerup", (event) => {
+  if (!logTouch || logTouch.id !== event.pointerId) return;
+  const dx = event.clientX - logTouch.x;
+  const dy = event.clientY - logTouch.y;
+  logTouch = null;
+  if (Math.abs(dx) < 45 || Math.abs(dx) < Math.abs(dy) * 1.3) return;
+  logSuppressClickUntil = performance.now() + 450;
+  selectLog(logIndex + (dx < 0 ? 1 : -1));
+});
+logStage.addEventListener("pointercancel", () => {
+  logTouch = null;
+});
+selectLog(0);
+
 const dialog = document.querySelector(".content-dialog");
 let dialogOpener = null;
 document.querySelectorAll("[data-content]").forEach((button) => {
   button.addEventListener("click", () => {
+    if (button.hasAttribute("data-log-card")) {
+      if (performance.now() < logSuppressClickUntil) return;
+      const index = Number(button.dataset.logCard);
+      if (index !== logIndex) {
+        selectLog(index);
+        // Pointer selection becomes a useful keyboard starting point too.
+        button.focus({ preventScroll: true });
+        return;
+      }
+    }
     const content = archive[button.dataset.content];
     if (!content) return;
     dialogOpener = button;
@@ -425,6 +502,7 @@ document.querySelectorAll("[data-content]").forEach((button) => {
     note.className = "sample-note";
     note.textContent = content.note;
     body.appendChild(note);
+    button.classList.add("is-opening");
     dialog.showModal();
     syncCompanionActivity();
     dialog.scrollTop = 0;
@@ -448,5 +526,6 @@ dialog.addEventListener("click", (event) => {
 dialog.addEventListener("close", () => {
   document.body.style.overflow = "";
   syncCompanionActivity();
+  dialogOpener?.classList.remove("is-opening");
   dialogOpener?.focus({ preventScroll: true });
 });

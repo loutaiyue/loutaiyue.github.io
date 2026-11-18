@@ -13,6 +13,7 @@
     <script src="./theme.js"></script>
     <link rel="stylesheet" href="./styles.css" />
     <link rel="stylesheet" href="./themes.css" />
+    <link rel="stylesheet" href="./notes.css" />
     <link rel="preload" href="./assets/bangboo-loading.png" as="image" />
     <script>
       document.documentElement.classList.add("js", "booting");
@@ -436,58 +437,152 @@
               <span>NO FILTER</span><span>JUST ME.</span>
             </div>
           </div>
-          <div class="notes-list">
-            <button
-              class="note-row reveal"
-              type="button"
-              data-content="window"
-              data-reveal="row"
-              style="--reveal-delay: 80ms"
+          <div class="notes-archive reveal" data-reveal="row">
+            <div
+              class="archive-stage"
+              role="group"
+              aria-roledescription="轮播"
+              aria-label="个人日志档案"
             >
-              <span class="note-index">001</span>
-              <div class="note-copy">
-                <span class="note-meta"
-                  >关于这里 <span>/</span> 3 MIN READ</span
-                >
-                <h3>给互联网留一扇自己的窗</h3>
-                <p>一小块空间，放一些属于自己的东西。</p>
-              </div>
-              <span class="note-arrow" aria-hidden="true">↗</span>
-            </button>
-            <button
-              class="note-row reveal"
-              type="button"
-              data-content="making"
-              data-reveal="row"
-              style="--reveal-delay: 160ms"
-            >
-              <span class="note-index">002</span>
-              <div class="note-copy">
-                <span class="note-meta"
-                  >折腾日常 <span>/</span> 2 MIN READ</span
-                >
-                <h3>把灵感做成小东西</h3>
-                <p>从「如果可以」到「已经可以」。</p>
-              </div>
-              <span class="note-arrow" aria-hidden="true">↗</span>
-            </button>
-            <button
-              class="note-row reveal"
-              type="button"
-              data-content="slow"
-              data-reveal="row"
-              style="--reveal-delay: 240ms"
-            >
-              <span class="note-index">003</span>
-              <div class="note-copy">
-                <span class="note-meta"
-                  >生活碎片 <span>/</span> 2 MIN READ</span
-                >
-                <h3>最近，想慢一点</h3>
-                <p>也给没有产出的时刻，留个位置。</p>
-              </div>
-              <span class="note-arrow" aria-hidden="true">↗</span>
-            </button>
+              <button
+                class="archive-card"
+                type="button"
+                data-log-card="0"
+                data-position="current"
+                data-content="window"
+                aria-label="打开档案 001：给互联网留一扇自己的窗"
+              >
+                <span class="archive-back" aria-hidden="true">
+                  <span>PERSONAL FILE / 001</span>
+                  <strong>AN OPEN<br />WINDOW</strong>
+                  <i>关于这里</i>
+                </span>
+                <span class="archive-cover">
+                  <span class="archive-cover-top"
+                    ><b>PC</b><span>PERSONAL LOG / 001</span></span
+                  >
+                  <span class="archive-art archive-art-window">
+                    <img
+                      src="./assets/bangboo-hero.webp"
+                      alt=""
+                      width="328"
+                      height="492"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <span aria-hidden="true">OPEN<br />CHANNEL</span>
+                  </span>
+                  <span class="archive-copy">
+                    <span>关于这里 / 3 MIN READ</span>
+                    <strong>给互联网留一扇自己的窗</strong>
+                    <small>一小块空间，放一些属于自己的东西。</small>
+                  </span>
+                  <span class="archive-cover-bottom"
+                    >READ FILE <b aria-hidden="true">↗</b></span
+                  >
+                </span>
+              </button>
+              <button
+                class="archive-card"
+                type="button"
+                data-log-card="1"
+                data-position="right"
+                data-content="making"
+                aria-label="打开档案 002：把灵感做成小东西"
+              >
+                <span class="archive-back" aria-hidden="true">
+                  <span>PERSONAL FILE / 002</span>
+                  <strong>MAKE IT<br />REAL</strong>
+                  <i>折腾日常</i>
+                </span>
+                <span class="archive-cover">
+                  <span class="archive-cover-top"
+                    ><b>PC</b><span>PERSONAL LOG / 002</span></span
+                  >
+                  <span class="archive-art archive-art-making">
+                    <img
+                      src="./assets/bangboo-bagboo.png"
+                      alt=""
+                      width="500"
+                      height="500"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <span aria-hidden="true">IDEA<br />IN / OUT</span>
+                  </span>
+                  <span class="archive-copy">
+                    <span>折腾日常 / 2 MIN READ</span>
+                    <strong>把灵感做成小东西</strong>
+                    <small>从「如果可以」到「已经可以」。</small>
+                  </span>
+                  <span class="archive-cover-bottom"
+                    >READ FILE <b aria-hidden="true">↗</b></span
+                  >
+                </span>
+              </button>
+              <button
+                class="archive-card"
+                type="button"
+                data-log-card="2"
+                data-position="left"
+                data-content="slow"
+                aria-label="打开档案 003：最近，想慢一点"
+              >
+                <span class="archive-back" aria-hidden="true">
+                  <span>PERSONAL FILE / 003</span>
+                  <strong>TAKE<br />YOUR TIME</strong>
+                  <i>生活碎片</i>
+                </span>
+                <span class="archive-cover">
+                  <span class="archive-cover-top"
+                    ><b>PC</b><span>PERSONAL LOG / 003</span></span
+                  >
+                  <span class="archive-art archive-art-slow">
+                    <img
+                      src="./assets/bangboo-airui.png"
+                      alt=""
+                      width="512"
+                      height="512"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <span aria-hidden="true">SLOW<br />MOMENT</span>
+                  </span>
+                  <span class="archive-copy">
+                    <span>生活碎片 / 2 MIN READ</span>
+                    <strong>最近，想慢一点</strong>
+                    <small>也给没有产出的时刻，留个位置。</small>
+                  </span>
+                  <span class="archive-cover-bottom"
+                    >READ FILE <b aria-hidden="true">↗</b></span
+                  >
+                </span>
+              </button>
+            </div>
+            <div class="archive-controls">
+              <button
+                class="archive-arrow"
+                type="button"
+                data-log-prev
+                aria-label="上一份日志档案"
+                title="上一份"
+              >
+                <span aria-hidden="true">←</span>
+              </button>
+              <span class="archive-counter" aria-live="polite"
+                ><b>01</b> / 03</span
+              >
+              <button
+                class="archive-arrow"
+                type="button"
+                data-log-next
+                aria-label="下一份日志档案"
+                title="下一份"
+              >
+                <span aria-hidden="true">→</span>
+              </button>
+              <span class="archive-hint">SELECT AN ARCHIVE TO READ</span>
+            </div>
           </div>
         </div>
       </section>

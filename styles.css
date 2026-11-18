@@ -1458,111 +1458,6 @@ h1 {
   margin-left: 20px;
   font-size: 20px;
 }
-.notes {
-  padding: 0 7%;
-  position: relative;
-}
-.notes:before {
-  content: "";
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: 120px;
-  height: 30px;
-  background: repeating-linear-gradient(
-    135deg,
-    var(--ink) 0 8px,
-    transparent 8px 16px
-  );
-  transform: translateY(var(--section-shift, 0px));
-  transition: transform 0.2s linear;
-}
-.notes-grid {
-  display: grid;
-  grid-template-columns: 0.72fr 1.28fr;
-  gap: 80px;
-}
-.notes-intro > p {
-  font-size: 12px;
-  line-height: 1.9;
-  color: #737469;
-  margin-top: 20px;
-}
-.notes h2 {
-  font-size: 43px;
-}
-.notes .lime-dot {
-  color: var(--ink);
-}
-.notes-stamp {
-  display: inline-flex;
-  flex-direction: column;
-  font: 900 italic 19px/0.95 var(--display);
-  letter-spacing: 0.3px;
-  border: 2px solid var(--ink);
-  padding: 9px 12px;
-  margin-top: 33px;
-  transform: rotate(-10deg);
-  background: var(--lime);
-}
-.note-row {
-  display: flex;
-  align-items: center;
-  gap: 22px;
-  width: 100%;
-  background: none;
-  text-align: left;
-  padding: 26px 0;
-  border-top: 1px solid #bcbfb0;
-  transition: padding 0.25s;
-}
-.note-row:last-child {
-  border-bottom: 1px solid #bcbfb0;
-}
-.note-row:hover {
-  padding-left: 9px;
-}
-.note-index {
-  align-self: flex-start;
-  margin-top: 3px;
-  font: 700 12px var(--display);
-  color: #777d6c;
-  letter-spacing: 1px;
-}
-.note-copy {
-  flex: 1;
-  min-width: 0;
-}
-.note-meta {
-  font: 600 9px var(--body);
-  letter-spacing: 1px;
-  color: #727769;
-  display: flex;
-  gap: 12px;
-}
-.note-meta > span {
-  color: #acafa0;
-}
-.note-copy h3 {
-  font-size: 21px;
-  letter-spacing: -0.5px;
-  font-weight: 800;
-  margin-top: 12px;
-  line-height: 1.5;
-}
-.note-copy p {
-  font-size: 11px;
-  color: #76796c;
-  margin-top: 9px;
-  line-height: 1.75;
-}
-.note-arrow {
-  font: 400 29px Arial;
-  transition: transform 0.25s;
-}
-.note-row:hover .note-arrow {
-  transform: translate(3px, -3px);
-}
 .about {
   overflow: hidden;
   background: #e3e5db;
@@ -2370,7 +2265,6 @@ h1 {
     transition-delay: 0ms;
     transition-duration: 0.5s, 0.65s, 0.65s, 0.25s;
   }
-  .notes:before,
   .about:before {
     transform: none;
   }
@@ -2673,9 +2567,6 @@ h1 {
   .play-type {
     font-size: 57px;
   }
-  .notes-grid {
-    gap: 40px;
-  }
   .about-grid {
     gap: 55px;
   }
@@ -2856,28 +2747,6 @@ h1 {
     width: 33px;
     height: 33px;
     font-size: 23px;
-  }
-  .notes-grid {
-    grid-template-columns: 0.65fr 1.35fr;
-    gap: 35px;
-  }
-  .note-row {
-    gap: 14px;
-  }
-  .note-copy h3 {
-    font-size: 17px;
-  }
-  .note-copy p {
-    font-size: 10px;
-  }
-  .note-meta {
-    font-size: 8px;
-  }
-  .notes h2 {
-    font-size: 35px;
-  }
-  .notes-stamp {
-    font-size: 17px;
   }
   .about-grid {
     gap: 38px;
@@ -3274,7 +3143,6 @@ h1 {
     font-size: 23px;
   }
   .projects,
-  .notes,
   .about,
   .site-footer {
     padding-inline: 23px;
@@ -3396,47 +3264,6 @@ h1 {
   .projects-bottom i {
     margin-left: 5px;
     font-size: 16px;
-  }
-  .notes-grid {
-    grid-template-columns: 1fr;
-    gap: 32px;
-  }
-  .notes-intro {
-    position: relative;
-  }
-  .notes-intro h2 {
-    font-size: 34px;
-  }
-  .notes-intro > p {
-    font-size: 11px;
-    margin-top: 15px;
-  }
-  .notes-stamp {
-    position: absolute;
-    right: 8px;
-    bottom: 15px;
-    font-size: 20px;
-    margin: 0;
-  }
-  .note-row {
-    padding: 23px 0;
-    gap: 12px;
-  }
-  .note-index {
-    font-size: 11px;
-  }
-  .note-copy h3 {
-    font-size: 19px;
-    margin-top: 10px;
-  }
-  .note-copy p {
-    font-size: 10px;
-  }
-  .note-meta {
-    font-size: 8px;
-  }
-  .note-arrow {
-    font-size: 24px;
   }
   .about-grid {
     grid-template-columns: 1fr;
@@ -3639,13 +3466,9 @@ h1 {
     display: none;
   }
   .projects,
-  .notes,
   .about,
   .site-footer {
     padding-inline: 19px;
-  }
-  .note-copy h3 {
-    font-size: 17px;
   }
   .project-art {
     height: 265px;
@@ -3658,12 +3481,6 @@ h1 {
   }
   .idea-window {
     height: 189px;
-  }
-  .note-meta {
-    font-size: 7px;
-  }
-  .notes-stamp {
-    font-size: 17px;
   }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -3689,7 +3506,6 @@ h1 {
   .js.motion-ready .section-inner::before {
     transform: scaleX(1);
   }
-  .notes:before,
   .about:before {
     transform: none;
   }

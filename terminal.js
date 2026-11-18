@@ -55,9 +55,9 @@
       url: card.href,
     }),
   );
-  const notes = [...document.querySelectorAll(".note-row")].map((note) => ({
-    title: cleanText(note.querySelector("h3")),
-    description: cleanText(note.querySelector(".note-copy p")),
+  const notes = [...document.querySelectorAll(".archive-card")].map((note) => ({
+    title: cleanText(note.querySelector(".archive-copy > strong")),
+    description: cleanText(note.querySelector(".archive-copy > small")),
   }));
   const row = (text, kind = "", href = "") => ({ text, kind, href });
   const directory = (text) => row(text, "directory");

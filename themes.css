@@ -25,7 +25,6 @@
 }
 body,
 .hero,
-.notes,
 .site-header,
 .site-footer {
   background: var(--page-bg);
@@ -41,8 +40,6 @@ body,
 .hero-bottom,
 .projects-bottom,
 .footer-bottom,
-.note-row,
-.note-row:last-child,
 .dialog-bottom {
   border-color: var(--page-line);
 }
@@ -60,8 +57,6 @@ body,
 .project-category,
 .project-caption p,
 .projects-bottom,
-.notes-intro > p,
-.note-copy p,
 .about-copy > p,
 .footer-bottom,
 .dialog-kicker {
@@ -69,10 +64,7 @@ body,
 }
 .tiny-index,
 .identity-slash,
-.main-nav a > span,
-.note-index,
-.note-meta,
-.note-meta > span {
+.main-nav a > span {
   color: var(--soft-text);
 }
 .hero-bottom > a,
@@ -86,8 +78,7 @@ body,
 .replay-button > span:first-child,
 .projects-bottom i,
 .footer-top > a,
-.lime-dot,
-.notes .lime-dot {
+.lime-dot {
   color: var(--accent-text);
 }
 .main-nav a.is-active {
@@ -115,13 +106,6 @@ body,
 .interest-tags > span {
   border-color: var(--page-line);
 }
-.notes::before {
-  background: repeating-linear-gradient(
-    135deg,
-    var(--page-text) 0 8px,
-    transparent 8px 16px
-  );
-}
 .headline-highlight::before {
   background: light-dark(var(--lime), #d7ff0052);
 }
@@ -129,7 +113,6 @@ body,
 .button-lime,
 .scene-sticker,
 .ticker,
-.notes-stamp,
 .about-id,
 .mascot-speech,
 .skip-link,

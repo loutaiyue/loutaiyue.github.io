@@ -1,0 +1,526 @@
+/* The archive covers keep their printed colors in either interface theme. */
+.notes {
+  padding: 0 7%;
+  position: relative;
+  color: var(--page-text);
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--surface-bg);
+}
+.notes::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: auto;
+  height: auto;
+  z-index: -2;
+  background:
+    radial-gradient(ellipse at 75% 35%, #afbf8770, transparent 46%),
+    radial-gradient(ellipse at 48% 90%, #b5a5cb5c, transparent 56%),
+    linear-gradient(125deg, #0f130b24, transparent 62%);
+  transform: none;
+}
+.notes::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: repeating-linear-gradient(
+    130deg,
+    #ffffff05 0 1px,
+    transparent 1px 5px
+  ), #1c1e19;
+  clip-path: polygon(0 0, 46% 0, 12% 100%, 0 100%);
+  pointer-events: none;
+}
+.notes .notes-grid {
+  display: grid;
+  grid-template-columns: minmax(215px, 0.7fr) minmax(0, 1.7fr);
+  align-items: center;
+  gap: 20px;
+  padding-block: 76px 58px;
+  min-height: 700px;
+}
+.notes-intro {
+  position: relative;
+  z-index: 3;
+  align-self: start;
+  padding-top: 25px;
+  color: var(--paper);
+}
+.notes-intro .section-kicker {
+  flex-direction: column-reverse;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 11px;
+  letter-spacing: 1.6px;
+  color: var(--lime);
+}
+.notes-intro .section-kicker > b {
+  background: var(--lime);
+  color: var(--ink);
+  font: 800 80px/1 var(--display);
+  letter-spacing: -3px;
+  padding: 6px 45px 11px 11px;
+  border-radius: 0 32px 0 0;
+  clip-path: polygon(0 0, 100% 0, 100% 44%, 64% 100%, 0 100%);
+  transform: none;
+}
+.notes-intro h2 {
+  font-size: clamp(28px, 2.6vw, 37px);
+  line-height: 1.45;
+  margin-top: 30px;
+  letter-spacing: -1px;
+}
+.notes-intro .lime-dot {
+  color: var(--lime);
+}
+.notes-intro > p {
+  color: #b3b8a9;
+  font-size: 11px;
+  line-height: 2;
+  margin-top: 19px;
+}
+.notes-intro .notes-stamp {
+  display: inline-flex;
+  flex-direction: column;
+  position: static;
+  color: var(--lime);
+  background: transparent;
+  border: 2px solid #6b7353;
+  padding: 9px 12px;
+  font: 900 italic 17px/0.95 var(--display);
+  letter-spacing: 0.3px;
+  transform: rotate(-10deg);
+  margin-top: 35px;
+}
+.notes-archive {
+  min-width: 0;
+  position: relative;
+  z-index: 2;
+  --card-width: clamp(265px, 23vw, 320px);
+  --card-height: 452px;
+  --card-shift: clamp(175px, 17.4vw, 235px);
+}
+.archive-stage {
+  height: 505px;
+  position: relative;
+  touch-action: pan-y pinch-zoom;
+}
+.archive-card {
+  display: block;
+  position: absolute;
+  left: 50%;
+  top: 20px;
+  width: var(--card-width);
+  height: var(--card-height);
+  padding: 0;
+  background: transparent;
+  color: #f4f4ec;
+  text-align: left;
+  border-radius: 9px;
+  transform: translateX(-50%);
+  transition:
+    transform 750ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 650ms ease;
+  -webkit-user-select: none;
+  user-select: none;
+}
+.archive-card[data-position="current"] {
+  z-index: 3;
+  filter: none;
+}
+.archive-card[data-position="left"] {
+  z-index: 1;
+  transform: translateX(calc(-50% - var(--card-shift))) scale(0.8);
+  filter: brightness(0.4) saturate(0.6);
+}
+.archive-card[data-position="right"] {
+  z-index: 1;
+  transform: translateX(calc(-50% + var(--card-shift))) scale(0.8);
+  filter: brightness(0.4) saturate(0.6);
+}
+.archive-card:not([data-position="current"]):hover {
+  filter: brightness(0.65) saturate(0.8);
+}
+.archive-cover,
+.archive-back {
+  display: block;
+  position: absolute;
+  inset: 0;
+  border-radius: 9px;
+  overflow: hidden;
+  transition: transform 550ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.archive-back {
+  background: var(--lime);
+  color: var(--ink);
+  transform: rotate(5deg);
+  border: 1px solid #252b1690;
+  padding: 22px;
+}
+.archive-back > span {
+  font: 700 9px var(--body);
+  letter-spacing: 1px;
+}
+.archive-back > strong {
+  position: absolute;
+  right: -102px;
+  top: 42%;
+  width: 390px;
+  transform: rotate(90deg);
+  font: 800 59px/0.9 var(--display);
+  letter-spacing: -1px;
+}
+.archive-back > i {
+  position: absolute;
+  bottom: 23px;
+  left: 22px;
+  font: 800 16px var(--body);
+}
+.archive-cover {
+  background: #10110f;
+  border: 1px solid #777e5260;
+  box-shadow: 0 18px 35px #11150c38;
+}
+.archive-cover-top {
+  position: absolute;
+  top: 20px;
+  left: 22px;
+  right: 22px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.archive-cover-top > b {
+  font: 800 italic 26px/1 var(--display);
+  letter-spacing: -2px;
+  border-bottom: 3px solid var(--lime);
+}
+.archive-cover-top > span {
+  font: 600 8px var(--body);
+  letter-spacing: 0.7px;
+  color: #989d8e;
+}
+.archive-art {
+  position: absolute;
+  inset: 65px 0 111px;
+  display: block;
+  overflow: hidden;
+}
+.archive-art::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(135deg, #ffffff14 0 1px, transparent 1px 7px),
+    #b7ce76;
+  clip-path: polygon(0 53%, 100% 4%, 100% 63%, 0 100%);
+}
+.archive-art img {
+  position: absolute;
+  width: 77%;
+  height: 108%;
+  object-fit: contain;
+  right: -6%;
+  top: -1%;
+  transform: rotate(12deg);
+}
+.archive-art > span {
+  display: block;
+  position: absolute;
+  top: 5px;
+  left: 22px;
+  font: 800 45px/0.89 var(--display);
+  letter-spacing: -0.7px;
+  text-shadow: 0 2px 15px #0009;
+}
+.archive-art-making::before {
+  background-color: #9fa9e5;
+}
+.archive-art-making img {
+  width: 105%;
+  height: 108%;
+  right: -20%;
+  top: 9%;
+  transform: rotate(-13deg);
+}
+.archive-art-slow::before {
+  background-color: #d9a6c2;
+}
+.archive-art.archive-art-slow > span {
+  top: 8px;
+  left: 8px;
+  z-index: 1;
+  font-size: 16px;
+  line-height: 0.9;
+  opacity: 0.76;
+}
+.archive-art-slow img {
+  width: 108%;
+  height: 100%;
+  object-fit: contain;
+  right: -4%;
+  top: 0;
+  transform: none;
+  clip-path: none;
+}
+.archive-copy {
+  display: block;
+  position: absolute;
+  bottom: 54px;
+  left: 22px;
+  right: 22px;
+}
+.archive-copy > span {
+  display: block;
+  font: 600 8px var(--body);
+  letter-spacing: 0.5px;
+  color: var(--lime);
+  margin-bottom: 9px;
+}
+.archive-copy > strong {
+  display: block;
+  font-size: 19px;
+  font-weight: 800;
+  line-height: 1.6;
+  letter-spacing: -0.5px;
+}
+.archive-copy > small {
+  display: block;
+  color: #a9ae9f;
+  font-size: 10px;
+  line-height: 1.8;
+  margin-top: 8px;
+}
+.archive-cover-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 22px;
+  right: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 41px;
+  border-top: 1px solid #373c2e;
+  font: 700 8px var(--body);
+  letter-spacing: 1.2px;
+}
+.archive-cover-bottom > b {
+  font: 400 26px Arial;
+  color: var(--lime);
+}
+.archive-card[data-position="current"]:focus-visible .archive-cover {
+  transform: translateX(-12%) rotate(-3deg);
+}
+.archive-card[data-position="current"]:focus-visible .archive-back {
+  transform: translateX(14%) rotate(6deg);
+}
+.archive-card:focus-visible {
+  outline: 3px solid var(--lime);
+  outline-offset: 9px;
+}
+@media (hover: hover) and (pointer: fine) {
+  .archive-card[data-position="current"]:hover .archive-cover {
+    transform: translateX(-12%) rotate(-3deg);
+  }
+  .archive-card[data-position="current"]:hover .archive-back {
+    transform: translateX(14%) rotate(6deg);
+  }
+}
+.archive-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  position: relative;
+  z-index: 4;
+}
+.archive-arrow {
+  display: grid;
+  place-items: center;
+  width: 50px;
+  height: 42px;
+  border: 2px solid var(--page-text);
+  border-radius: 24px;
+  color: var(--page-text);
+  background: var(--raised-bg);
+  transition: background 180ms, color 180ms, transform 180ms;
+}
+.archive-arrow > span {
+  font: 800 29px/1 Arial;
+}
+.archive-arrow:hover {
+  background: var(--lime);
+  color: var(--ink);
+  transform: translateY(-2px);
+}
+.archive-arrow:focus-visible {
+  outline-color: var(--focus-color);
+}
+.archive-counter {
+  font: 700 12px var(--display);
+  letter-spacing: 2px;
+  color: var(--muted-text);
+  white-space: nowrap;
+}
+.archive-counter > b {
+  color: var(--page-text);
+  font-size: 25px;
+  margin-right: 6px;
+}
+.archive-hint {
+  position: absolute;
+  top: 59px;
+  font: 600 7px var(--body);
+  letter-spacing: 1.5px;
+  color: var(--muted-text);
+}
+.archive-card.is-opening .archive-cover {
+  transform: translateX(-24%) rotate(-6deg);
+}
+.archive-card.is-opening .archive-back {
+  transform: translateX(24%) rotate(9deg);
+}
+.archive-controls {
+  visibility: hidden;
+}
+.js .archive-controls {
+  visibility: visible;
+}
+html:not(.js) .archive-stage {
+  display: flex;
+  overflow-x: auto;
+  gap: 25px;
+  height: auto;
+  padding: 20px 15px 45px;
+}
+html:not(.js) .archive-card {
+  position: relative;
+  flex: 0 0 var(--card-width);
+  left: auto;
+  top: auto;
+  transform: none;
+  filter: none;
+}
+@media (max-width: 1100px) {
+  .notes .notes-grid {
+    grid-template-columns: minmax(190px, 0.7fr) minmax(0, 1.6fr);
+    gap: 8px;
+    min-height: 650px;
+    padding-block: 65px 65px;
+  }
+  .notes-archive {
+    --card-width: 265px;
+    --card-height: 425px;
+    --card-shift: 160px;
+  }
+  .archive-stage {
+    height: 475px;
+  }
+  .notes-intro h2 {
+    font-size: 30px;
+  }
+  .archive-art > span {
+    font-size: 39px;
+  }
+}
+@media (max-width: 700px) {
+  .notes {
+    padding-inline: 23px;
+  }
+  .notes::after {
+    clip-path: polygon(0 0, 100% 0, 100% 26%, 0 44%);
+  }
+  .notes .notes-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 23px;
+    padding-block: 42px 65px;
+    min-height: 0;
+  }
+  .notes-intro {
+    padding-top: 0;
+  }
+  .notes-intro .section-kicker {
+    font-size: 9px;
+    gap: 8px;
+  }
+  .notes-intro .section-kicker > b {
+    font-size: 48px;
+    padding: 5px 38px 7px 8px;
+    border-radius: 0 24px 0 0;
+  }
+  .notes-intro h2 {
+    font-size: 27px;
+    line-height: 1.45;
+    margin-top: 18px;
+  }
+  .notes-intro h2 br {
+    display: none;
+  }
+  .notes-intro > p {
+    font-size: 10px;
+    line-height: 1.9;
+    margin-top: 10px;
+  }
+  .notes-intro > p br {
+    display: none;
+  }
+  .notes-intro .notes-stamp {
+    position: absolute;
+    right: 5px;
+    top: 13px;
+    bottom: auto;
+    font-size: 17px;
+    margin: 0;
+  }
+  .notes-archive {
+    --card-width: 260px;
+    --card-height: 417px;
+    --card-shift: 200px;
+  }
+  .archive-stage {
+    height: 465px;
+  }
+  .archive-art {
+    bottom: 112px;
+  }
+  .archive-copy > strong {
+    font-size: 18px;
+  }
+  .archive-controls {
+    gap: 25px;
+  }
+  .archive-arrow {
+    height: 44px;
+    width: 54px;
+  }
+}
+@media (max-width: 360px) {
+  .notes {
+    padding-inline: 19px;
+  }
+  .notes-archive {
+    --card-width: 245px;
+    --card-shift: 176px;
+  }
+  .notes-intro h2 {
+    font-size: 25px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .archive-card .archive-cover,
+  .archive-card .archive-back {
+    transition: none;
+  }
+  .archive-card[data-position="current"]:is(:hover, :focus-visible) .archive-cover,
+  .archive-card.is-opening .archive-cover {
+    transform: none;
+  }
+  .archive-card[data-position="current"]:is(:hover, :focus-visible) .archive-back,
+  .archive-card.is-opening .archive-back {
+    transform: rotate(5deg);
+  }
+}
